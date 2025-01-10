@@ -42,4 +42,5 @@ exe = EXE(
     icon='tf2c.ico',
     codesign_identity=None,
     entitlements_file=None,
+    uac_admin=True,
 )
