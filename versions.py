@@ -34,7 +34,6 @@ def update_rev_file():
                 new_version_file.write(old_version)
         return True
     except Exception as e:
-        print(str(e))
         return False
 
 def get_installed_version():

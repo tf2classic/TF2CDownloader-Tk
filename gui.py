@@ -77,7 +77,7 @@ def gui_update_state(forceupdate = False):
         else:
             current_revision_panel.config(text=f"Current Revision: Not found!")
             current_revision_panel.config(foreground="#f00")
-            latest_revision_panel.config(foreground="#f00")
+            latest_revision_panel.config(foreground="#000")
 
             latest_revision_panel.config(text=f"Latest Revision: {latest_version}")
 
