@@ -4,7 +4,7 @@ from os import path
 import variables
 from tkinter import messagebox
 import sys
-from versions import update_version_list
+from versions import update_version_list, check_downloader_update
 
 if system() == 'Windows':
     import winreg
@@ -66,6 +66,15 @@ def init_version_list():
         if not variables.SCRIPT_MODE:
             messagebox.showerror("Error!", "Could not get version list!\n\nIf your internet connection is fine, our server could be having technical issues.")
         sys.exit(1)
+
+def init_downloader_update():
+    try:
+        check_downloader_update()
+        print("TF2CDownloader appears to be up-to-date!")
+    except Exception as e:
+        print(str(e))
+        if not variables.SCRIPT_MODE:
+            messagebox.showwarning("Warning!", str(e))
 
 def init_console():
     variables.SCRIPT_MODE = len(sys.argv) > 1

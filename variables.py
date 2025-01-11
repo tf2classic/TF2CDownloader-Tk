@@ -9,6 +9,10 @@ GAME_DIR_NAME = "tf2classic"
 STAGING_DIR_NAME = "tf2cdownloader-staging"
 BUTLER_STAGING_DIR_NAME = "butler-staging"
 SOURCE_URL = 'https://wiki.tf2classic.com/kachemak/'
+SOURCE_JSON = "versions.json"
+DOWNLOAD_PAGE_URL = "https://tf2classic.com/download"
+DOWNLOADER_HASH_WINDOWS = "tf2cdtk_sha512sum_windows"
+DOWNLOADER_HASH_LINUX = "tf2cdtk_sha512sum_linux"
 CURRENT_PROCESS = None
 
 TF2CDOWNLOADER_PATH = None

@@ -1,10 +1,13 @@
 import variables
 import json
 import httpx
+import hashlib
+from platform import system
+from sys import argv
 from os import path
 
 def update_version_list():
-    version_remote = httpx.get(variables.SOURCE_URL + 'versions.json')
+    version_remote = httpx.get(variables.SOURCE_URL + variables.SOURCE_JSON)
     variables.VERSION_LIST = json.loads(version_remote.text)
 
 def latest_version():
@@ -74,3 +77,28 @@ def check_for_game_updates(verify = False):
             raise Exception("No patch could be found for your game version.\nIt could be too old. Try reinstalling the game.")
     
     return True
+
+def hash_script():
+    h = hashlib.sha512()
+    with open(argv[0], 'rb') as file:
+        chunk = 0
+        while chunk != b'':
+            chunk = file.read(1024)
+            h.update(chunk)
+    return h.hexdigest()
+
+def check_downloader_update():
+    try:
+        if system() == 'Windows':
+            print(f"{variables.SOURCE_URL}{variables.DOWNLOADER_HASH_WINDOWS}")
+            remote_hash = httpx.get( f"{variables.SOURCE_URL}{variables.DOWNLOADER_HASH_WINDOWS}" )
+        else:
+            remote_hash = httpx.get( f"{variables.SOURCE_URL}{variables.DOWNLOADER_HASH_LINUX}" )
+    except Exception as e:
+        raise Exception(f"WARNING: TF2CDownloader failed to check itself for updates, potentially out-of-date.\n\nDownload the latest version from {variables.DOWNLOAD_PAGE_URL}")
+
+    remote_hash_string = remote_hash.text
+    remote_hash_string = remote_hash_string.rstrip('\n')
+
+    if remote_hash_string != hash_script():
+        raise Exception(f"TF2CDownloader has an update available. Your current version may not work properly.\n\nDownload the latest version from {variables.DOWNLOAD_PAGE_URL}")
