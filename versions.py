@@ -90,7 +90,6 @@ def hash_script():
 def check_downloader_update():
     try:
         if system() == 'Windows':
-            print(f"{variables.SOURCE_URL}{variables.DOWNLOADER_HASH_WINDOWS}")
             remote_hash = httpx.get( f"{variables.SOURCE_URL}{variables.DOWNLOADER_HASH_WINDOWS}" )
         else:
             remote_hash = httpx.get( f"{variables.SOURCE_URL}{variables.DOWNLOADER_HASH_LINUX}" )
